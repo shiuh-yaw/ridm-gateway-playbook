@@ -39,31 +39,11 @@ const Overview = () => {
         <p className="text-xl text-muted-foreground mb-6">
           Comprehensive Product Requirements Document and Strategic Roadmap for the next phase of RidM Gateway development.
         </p>
-        <div className="flex flex-wrap gap-2 mb-8">
-          <button 
-            onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'overview' }))}
-            className="px-4 py-2 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
-          >
-            Product Strategy
-          </button>
-          <button 
-            onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'market' }))}
-            className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground font-medium hover:bg-secondary/90 transition-colors"
-          >
-            Market Analysis
-          </button>
-          <button 
-            onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'technical' }))}
-            className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground font-medium hover:bg-secondary/90 transition-colors"
-          >
-            Technical Specifications
-          </button>
-          <button 
-            onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'roadmap' }))}
-            className="px-4 py-2 rounded-full bg-secondary text-secondary-foreground font-medium hover:bg-secondary/90 transition-colors"
-          >
-            Implementation Roadmap
-          </button>
+        <div className="flex flex-wrap gap-2">
+          <Badge variant="default">Product Strategy</Badge>
+          <Badge variant="secondary">Market Analysis</Badge>
+          <Badge variant="secondary">Technical Specifications</Badge>
+          <Badge variant="secondary">Implementation Roadmap</Badge>
         </div>
       </div>
 
