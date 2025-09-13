@@ -16,6 +16,90 @@ import { useState } from 'react';
 
 const TechnicalSpecs = () => {
   const [showDemo, setShowDemo] = useState(false);
+
+  const downloadOpenAPISpec = () => {
+    // Create a sample OpenAPI spec
+    const openAPISpec = {
+      openapi: "3.0.0",
+      info: {
+        title: "RidM Gateway API",
+        description: "Comprehensive API for RidM Gateway payment processing platform",
+        version: "1.0.0",
+        contact: {
+          name: "RidM Gateway Support",
+          email: "support@ridm.com"
+        }
+      },
+      servers: [
+        {
+          url: "https://api.ridm.com/v1",
+          description: "Production server"
+        },
+        {
+          url: "https://sandbox-api.ridm.com/v1",
+          description: "Sandbox server"
+        }
+      ],
+      paths: {
+        "/payments": {
+          post: {
+            summary: "Create Payment",
+            description: "Create a new payment transaction",
+            requestBody: {
+              required: true,
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "object",
+                    properties: {
+                      amount: { type: "number", example: 100.00 },
+                      currency: { type: "string", example: "USD" },
+                      description: { type: "string", example: "Payment for services" }
+                    }
+                  }
+                }
+              }
+            },
+            responses: {
+              "201": {
+                description: "Payment created successfully",
+                content: {
+                  "application/json": {
+                    schema: {
+                      type: "object",
+                      properties: {
+                        id: { type: "string", example: "PAY_123456789" },
+                        status: { type: "string", example: "pending" },
+                        amount: { type: "number", example: 100.00 },
+                        currency: { type: "string", example: "USD" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+
+    // Create and download the file
+    const dataStr = JSON.stringify(openAPISpec, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'ridm-gateway-openapi-spec.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const openAPIDocs = () => {
+    // Open API documentation in a new tab
+    window.open('https://docs.ridm.com/api', '_blank');
+  };
   const architectureComponents = [
     {
       layer: 'API Gateway Layer',
@@ -225,11 +309,19 @@ const TechnicalSpecs = () => {
                 RESTful APIs with comprehensive OpenAPI 3.0 specification, supporting JSON and XML formats with real-time WebSocket connections.
               </p>
               <div className="flex space-x-2">
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => downloadOpenAPISpec()}
+                >
                   <Download className="h-4 w-4 mr-2" />
                   OpenAPI Spec
                 </Button>
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => openAPIDocs()}
+                >
                   <ExternalLink className="h-4 w-4 mr-2" />
                   API Docs
                 </Button>
