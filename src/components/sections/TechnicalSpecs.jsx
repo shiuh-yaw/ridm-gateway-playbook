@@ -11,8 +11,11 @@ import {
   Download,
   Play
 } from 'lucide-react';
+import InteractiveDemo from '../InteractiveDemo';
+import { useState } from 'react';
 
 const TechnicalSpecs = () => {
+  const [showDemo, setShowDemo] = useState(false);
   const architectureComponents = [
     {
       layer: 'API Gateway Layer',
@@ -442,8 +445,12 @@ const TechnicalSpecs = () => {
             </div>
 
             <div className="flex justify-center">
-              <Button size="lg" className="flex items-center space-x-2">
-                <ExternalLink className="h-5 w-5" />
+              <Button 
+                size="lg" 
+                className="flex items-center space-x-2"
+                onClick={() => setShowDemo(true)}
+              >
+                <Play className="h-5 w-5" />
                 <span>Launch Interactive Demo</span>
               </Button>
             </div>
@@ -484,6 +491,27 @@ const TechnicalSpecs = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Interactive Demo Modal/Overlay */}
+      {showDemo && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-background rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">Interactive Payment Demo</h2>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowDemo(false)}
+                  className="flex items-center space-x-2"
+                >
+                  <span>Close</span>
+                </Button>
+              </div>
+              <InteractiveDemo />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
