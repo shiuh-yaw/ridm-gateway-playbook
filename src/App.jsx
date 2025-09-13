@@ -8,7 +8,6 @@ import StrategicRoadmap from './components/sections/StrategicRoadmap';
 import TechnicalSpecs from './components/sections/TechnicalSpecs';
 
 function App() {
-  console.log('App component loading...')
   const [activeSection, setActiveSection] = useState('overview');
 
   const renderSection = () => {
